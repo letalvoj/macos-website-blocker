@@ -5,7 +5,7 @@ DELAY=15
 
 while true; do
 
-  for b in "Safari" "Google Chrome"; do # "Firefox"
+  for b in "Safari" "Google Chrome"; do # "Firefox" was not tested yet
     osascript -e "
       tell application \"$b\"
         set blacklist to {\"youtube.com\", \"facebook.com\"}
@@ -20,8 +20,9 @@ while true; do
             set tabURL to URL of tab t of window w
 
             if (tabURL contains some text item of blacklist) and (tabURL does not contain some text item of whitelist) then
-                set the URL of tab t of window w to \"$LANDING_URL\"
-                say \"Focus!\" using "Samantha"
+              set the URL of tab t of window w to \"$LANDING_URL\"
+              -- close tab t of window w           -- you might want to be a bit more brutal
+              -- say \"Focus!\" using \"Samantha\" -- the computer can even shout at you
             end if
           end repeat
         end repeat
