@@ -1,10 +1,13 @@
 #!/usr/bin/env bash
+set -euo pipefail
 
 LANDING_URL="https://letalvoj.github.io/block-page/"
 DELAY=15
 
-while true; do
+# Stopping the parent automator process orphans this process
+PARENT_ID="$(ps -o ppid= -p $PPID)"
 
+while [ "$PARENT_ID" = "$(ps -o ppid= -p $PPID)" ]; do
   for b in "Safari" "Google Chrome"; do # "Firefox" was not tested yet
     osascript -e "
       tell application \"$b\"
@@ -29,6 +32,6 @@ while true; do
       end tell
     "
 
-  done;
+  done
   sleep $DELAY
-done;
+done
